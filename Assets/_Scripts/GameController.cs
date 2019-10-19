@@ -47,15 +47,16 @@ public class GameController : MonoBehaviour
         {
             _lives = value;
             if(_lives < 1)
-            {
-                
+            {    
                 SceneManager.LoadScene("End");
             }
-            else
-            {
-                livesLabel.text = "Lives: " + _lives.ToString();
-            }
+            // Check for moving to the level 2
            
+            else
+             {
+                livesLabel.text = "Lives: " + _lives.ToString();
+             }
+          
         }
     }
 
@@ -69,12 +70,13 @@ public class GameController : MonoBehaviour
         set
         {
             _score = value;
-
-            
-
             if (highScore.GetComponent<HighScore>().score < _score)
             {
                 highScore.GetComponent<HighScore>().score = _score;
+            }
+            if (_score > 500)
+            {
+                SceneManager.LoadScene("Main2");
             }
             scoreLabel.text = "Score: " + _score.ToString();
         }
@@ -112,6 +114,14 @@ public class GameController : MonoBehaviour
                 activeSoundClip = SoundClip.NONE;
                 break;
             case "Main":
+                highScoreLabel.enabled = false;
+                startLabel.SetActive(false);
+                startButton.SetActive(false);
+                endLabel.SetActive(false);
+                restartButton.SetActive(false);
+                activeSoundClip = SoundClip.ENGINE;
+                break;
+            case "Main2":
                 highScoreLabel.enabled = false;
                 startLabel.SetActive(false);
                 startButton.SetActive(false);
